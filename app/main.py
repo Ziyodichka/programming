@@ -17,9 +17,11 @@ app.add_middleware(
 
 app.include_router(items.router, prefix="/api/v1")
 
+
 @app.get("/")
 def root():
     return {"message": "FastAPI Vercel demo ishlayapti! 🚀", "status": "ok"}
+
 
 @app.get("/health")
 def health():

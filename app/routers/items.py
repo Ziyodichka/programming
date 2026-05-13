@@ -4,11 +4,13 @@ from typing import List, Optional
 
 router = APIRouter(prefix="/items", tags=["items"])
 
+
 class Item(BaseModel):
     id: int
     name: str
     description: Optional[str] = None
     price: float
+
 
 # In-memory "database"
 fake_db: List[Item] = [
@@ -17,9 +19,11 @@ fake_db: List[Item] = [
     Item(id=3, name="Quloqchin", description="Simsiz quloqchin", price=150.0),
 ]
 
+
 @router.get("/", response_model=List[Item])
 def get_items():
     return fake_db
+
 
 @router.get("/{item_id}", response_model=Item)
 def get_item(item_id: int):
@@ -27,6 +31,7 @@ def get_item(item_id: int):
     if not item:
         raise HTTPException(status_code=404, detail="Item topilmadi")
     return item
+
 
 @router.post("/", response_model=Item, status_code=201)
 def create_item(item: Item):
